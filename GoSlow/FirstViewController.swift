@@ -7,19 +7,33 @@
 //
 
 import UIKit
+import MapKit
 
 class FirstViewController: UIViewController {
-
+    
+    let regionRadius: CLLocationDistance = 2000
+    let almerePoort = [52.339200,5.142912]
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let initialLocation = CLLocation(latitude: almerePoort[0], longitude: almerePoort[1])
+        centerMapOnLocation(location: initialLocation)
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    
 }
-
